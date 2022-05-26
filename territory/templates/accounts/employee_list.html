@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'base.html'%}
+
+{% block content %}
+    <h1>Сотрудники:</h1>
+    {% for employee in employees %}
+        <ul>
+            {% if employee.user.is_staff %}
+                <hr class="hr-line">
+                <h2><a href="{% url 'employee_detail' pk=employee.pk %}">
+                    {{ employee.user.first_name }} {{ employee.user.last_name }}</a></h2>
+                <h3>{{ employee.position }}</h3>
+                <h3>{{ employee.user.number }}</h3>
+            {% endif %}
+        </ul>
+    {% endfor %}
+{% endblock %}

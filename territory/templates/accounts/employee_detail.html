@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% extends 'base.html'%}
+{% block content %}
+    <div class="list">
+        <h1>{{ employee.user.first_name }}
+        {{ employee.user.last_name }}
+        {{ employee.patronymic }}</h1>
+        <h2>{{ employee.position }}</h2>
+        <h2>{{ employee.user.number }}</h2>
+        <h2>{{ employee.birth_date }}</h2>
+
+    </div>
+{% endblock %}

@@ -3,17 +3,17 @@ from django.db import transaction
 from .forms import UserForm, ProfileForm
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
+from .models import Employee, Customer
 
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
-    template_name = "account/registration/signup.html"
-
+    template_name = "account/accounts/signup.html"
 
 @transaction.atomic
 def signup(request):
@@ -37,3 +37,12 @@ def signup(request):
     return render(request, 'registration/signup.html', {
         'user_form': user_form,
         'profile_form': profile_form})
+
+def employee_list(request):
+    employees = Employee.objects.all()
+    return render(request, 'accounts/employee_list.html', {'employees': employees})
+
+
+def employee_detail(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    return render(request, 'accounts/employee_detail.html', {'employee': employee})

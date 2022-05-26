@@ -12,11 +12,8 @@
     </head>
     <body>
         <div class="page-header">
-            {% if user.is_authenticated %}
-                {% if user.is_superuser %}
-                    <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-                {% endif %}
-            {% endif %}
+            {% block page %}
+            {% endblock %}
             <h1><a href="/">Territory</a></h1>
             <h2><a href="/">{% block title %} {% endblock %}</a></h2>
         </div>
