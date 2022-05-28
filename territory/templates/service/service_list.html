@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends 'base.html'%}
+
+{% block content %}
+    <h1>Услуги:
+        {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+                <a href="{% url 'service_new' %}" >
+                    <span class="glyphicon glyphicon-plus"></span></a>
+            {% endif %}
+        {% endif %}
+    </h1>
+    {% for service in services %}
+        <ul>
+            <hr class="hr-line">
+            <h2><a href="{% url 'service_detail' pk=service.pk %}">
+                {{ service.name }} </a></h2>
+            <h3>Цена: {{ service.price }} руб.</h3>
+            <h3>Продолжительность: {{ service.duration }}</h3>
+        </ul>
+    {% endfor %}
+{% endblock %}

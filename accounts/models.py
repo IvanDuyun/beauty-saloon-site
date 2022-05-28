@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.contrib.auth.models import AbstractUser, UserManager
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -12,6 +11,9 @@ class Customer(AbstractUser):
     objects = UserManager()
     class Meta:
         db_table = 'customer'
+
+    def __str__(self):
+        return self.first_name
 
 class Workday(models.Model):
     """Рабочий день"""
@@ -33,23 +35,6 @@ class Employee(models.Model):
     class Meta:
         db_table = 'employee'
 
-class Visit(models.Model):
-    """Прием"""
-    date = models.DateTimeField('Дата и время приема')
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    customer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    done = models.BooleanField()
+    def __str__(self):
+        return self.user.first_name
 
-    class Meta:
-        db_table = 'visit'
-
-class Service(models.Model):
-    """Услуга"""
-    name = models.CharField('Название услуги', max_length=250, blank=True)
-    cost_price = models.PositiveIntegerField('Себестоимость')
-    price = models.PositiveIntegerField('Стоимость')
-    description = models.TextField('Стоимость')
-    duration = models.DurationField('Продолжительность')
-
-    class Meta:
-        db_table = 'service'

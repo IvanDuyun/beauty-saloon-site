@@ -10,4 +10,7 @@
         <h2>{{ employee.birth_date }}</h2>
 
     </div>
+    {% if user.is_superuser %}
+        {{ cal|safe }}
+    {% endif %}
 {% endblock %}

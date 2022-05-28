@@ -2,9 +2,5 @@
 {% extends 'base.html'%}
 
 {% block page %}
-{% if user.is_authenticated %}
-    {% if user.is_superuser %}
-        <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-    {% endif %}
-{% endif %}
+
 {% endblock %}

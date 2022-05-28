@@ -8,6 +8,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import Employee, Customer
+import calendar
+from calendar import HTMLCalendar
+from datetime import datetime
 
 
 class SignUpView(generic.CreateView):
@@ -42,7 +45,16 @@ def employee_list(request):
     employees = Employee.objects.all()
     return render(request, 'accounts/employee_list.html', {'employees': employees})
 
+def create_calendar():
+    now_month = datetime.now().strftime('%b')
+    now_month_number = list(calendar.month_name).index(now_month)
+    now_year = datetime.now().year
+    cal = HTMLCalendar().formatmonth(now_year, now_month_number)
+    return cal
 
 def employee_detail(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
-    return render(request, 'accounts/employee_detail.html', {'employee': employee})
+    cal = create_calendar()
+    return render(request, 'accounts/employee_detail.html', {
+                'employee': employee,
+                'cal': cal})

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% extends 'base.html'%}
+{% block content %}
+    <div class="post">
+        <h1>{{ service.name }}
+            {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <a class="btn btn-default" href="{% url 'service_edit' pk=service.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                {% endif %}
+            {% endif %}
+        </h1>
+        <h2>Цена: {{ service.price }} руб.</h2>
+        <h2>Продолжительность: {{ service.duration }}</h2>
+        <h2>Описание:</h2>
+        <h2>{{ service.description }}</h2>
+    </div>
+
+{% endblock %}
